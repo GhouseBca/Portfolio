@@ -1,9 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { ArrowRight, Send, Sparkles } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Hero() {
+  const [profileSrc, setProfileSrc] = useState("/images/profile.webp");
+
   return (
     <section
       id="hero"
@@ -41,7 +45,7 @@ export default function Hero() {
           <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
             <Link
               href="#projects"
-              className="glow-btn inline-flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold text-sm px-8 py-3.5 rounded-xl shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 w-full sm:w-auto"
+              className="glow-btn inline-flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-500 to-purple-650 text-white font-semibold text-sm px-8 py-3.5 rounded-xl shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 w-full sm:w-auto"
             >
               <span>View My Work</span>
               <ArrowRight className="w-4 h-4" />
@@ -68,13 +72,16 @@ export default function Hero() {
             <div className="absolute inset-2 rounded-full bg-gradient-to-tr from-indigo-500 via-purple-500 to-cyan-500 p-[3px] animate-float">
               {/* Inner wrapper holding the image */}
               <div className="w-full h-full rounded-full bg-slate-950 overflow-hidden relative flex items-center justify-center">
-                <img
-                  src="/images/Profile.jpeg"
+                <Image
+                  src={profileSrc}
                   alt="Mohamed Ghouse"
+                  width={384}
+                  height={384}
+                  priority
                   className="w-[96%] h-[96%] object-cover rounded-full z-10 transition-transform duration-500 hover:scale-105"
-                  onError={(e) => {
-                    // Fallback to profile-clean or placeholder if profile doesn't render
-                    (e.target as HTMLImageElement).src = "/images/profile-clean.webp";
+                  onError={() => {
+                    // Fallback to profile-clean if primary fails to render
+                    setProfileSrc("/images/profile-clean.webp");
                   }}
                 />
               </div>
@@ -83,33 +90,33 @@ export default function Hero() {
             {/* Orbiting / Floating Skills */}
             {/* Top Left - React */}
             <div className="absolute -top-2 left-6 bg-slate-900/90 border border-slate-800 p-2.5 rounded-xl shadow-lg animate-float z-20 hover:scale-110 transition-transform">
-              <img src="/icons/react.png" alt="React" className="w-6 h-6 object-contain" />
+              <Image src="/icons/react.png" alt="React" width={24} height={24} className="object-contain" />
             </div>
 
             {/* Top Right - TypeScript */}
             <div className="absolute -top-4 right-10 bg-slate-900/90 border border-slate-800 p-2.5 rounded-xl shadow-lg animate-float-delayed z-20 hover:scale-110 transition-transform">
-              <img src="/icons/ts.png" alt="TypeScript" className="w-6 h-6 object-contain" />
+              <Image src="/icons/ts.png" alt="TypeScript" width={24} height={24} className="object-contain" />
             </div>
 
             {/* Middle Right - Next.js (from next.svg or custom label) */}
             <div className="absolute top-1/2 -right-4 -translate-y-1/2 bg-slate-900/90 border border-slate-800 px-3 py-2 rounded-xl shadow-lg animate-float z-20 flex items-center gap-1.5 hover:scale-110 transition-transform">
-              <img src="/next.svg" alt="Next.js" className="w-5 h-5 invert brightness-100 object-contain" />
+              <Image src="/next.svg" alt="Next.js" width={20} height={20} className="invert brightness-100 object-contain" />
               <span className="text-xs font-semibold text-white">Next.js</span>
             </div>
 
             {/* Bottom Right - HTML/CSS */}
             <div className="absolute bottom-6 right-6 bg-slate-900/90 border border-slate-800 p-2.5 rounded-xl shadow-lg animate-float-delayed z-20 hover:scale-110 transition-transform">
-              <img src="/icons/css.png" alt="CSS" className="w-6 h-6 object-contain" />
+              <Image src="/icons/css.png" alt="CSS" width={24} height={24} className="object-contain" />
             </div>
 
             {/* Bottom Left - Database/Tailwind */}
             <div className="absolute bottom-4 left-10 bg-slate-900/90 border border-slate-800 p-2.5 rounded-xl shadow-lg animate-float z-20 hover:scale-110 transition-transform">
-              <img src="/icons/database.png" alt="Database" className="w-6 h-6 object-contain" />
+              <Image src="/icons/database.png" alt="Database" width={24} height={24} className="object-contain" />
             </div>
 
             {/* Middle Left - HTML */}
             <div className="absolute top-1/3 -left-6 -translate-y-1/2 bg-slate-900/90 border border-slate-800 p-2.5 rounded-xl shadow-lg animate-float-delayed z-20 hover:scale-110 transition-transform">
-              <img src="/icons/html.png" alt="HTML" className="w-6 h-6 object-contain" />
+              <Image src="/icons/html.png" alt="HTML" width={24} height={24} className="object-contain" />
             </div>
           </div>
         </div>

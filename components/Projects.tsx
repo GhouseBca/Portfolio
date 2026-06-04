@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ExternalLink, CheckCircle2, Star } from "lucide-react";
+import Image from "next/image";
 
 type Project = {
   title: string;
@@ -27,7 +28,7 @@ const projects: Project[] = [
     tech: ["Next.js", "TypeScript", "Tailwind CSS", "REST APIs", "Git"],
     image: "/images/astromila.png",
     category: "production",
-    live: "https://astromila.com", // Simulated live link
+    live: "https://astromila.com",
     featured: true,
   },
   {
@@ -41,9 +42,9 @@ const projects: Project[] = [
       "Delivered real-time data updates for quizzes and consult schedule changes, maximizing user interactivity."
     ],
     tech: ["Next.js", "TypeScript", "Tailwind CSS", "Convex", "WorkOS"],
-    image: "/images/HelloSM.png",
+    image: "/images/hellosm.png",
     category: "production",
-    live: "https://hello-sm.vercel.app/",
+    live: "#",
     featured: true,
   },
   {
@@ -59,7 +60,129 @@ const projects: Project[] = [
     category: "demo",
     live: "https://dribbble.com/tags/multi-step-form",
   },
+  {
+    title: "Integration Dashboard",
+    subtitle: "SaaS Management UI",
+    description: "A developer-focused integration portal for linking workspace communication applications.",
+    details: [
+      "Implemented drag-and-drop workflow connectors and modular status widgets.",
+      "Constructed a clean, accessible layout using tailwind-merge and lucide-react icons."
+    ],
+    tech: ["Next.js", "ShadCN UI", "Tailwind CSS"],
+    image: "/images/project2.png",
+    category: "demo",
+    live: "https://dribbble.com/tags/integration-dashboard",
+  },
+  {
+    title: "Developer Documentation UI",
+    subtitle: "Resource & Guide Center",
+    description: "A fully responsive documentation hub with sidebar navigation and lightning-fast searching.",
+    details: [
+      "Designed a robust light/dark mode system utilizing Tailwind CSS custom theme variables.",
+      "Established organized sidebar menus with intuitive routing for complex user guides."
+    ],
+    tech: ["Next.js", "Tailwind CSS"],
+    image: "/images/project3.png",
+    category: "demo",
+    live: "https://dribbble.com/tags/api-documentation",
+  },
 ];
+
+function ProjectCard({ project }: { project: Project }) {
+  const [imgSrc, setImgSrc] = useState(project.image);
+
+  return (
+    <div className="glass-card rounded-2xl overflow-hidden flex flex-col h-full group">
+      {/* Thumbnail Container */}
+      <div className="relative h-48 overflow-hidden bg-slate-900 flex items-center justify-center border-b border-slate-900">
+        <Image
+          src={imgSrc}
+          alt={project.title}
+          width={400}
+          height={200}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          onError={() => {
+            // Fallback to project1 if image fails to render
+            setImgSrc("/images/project1.png");
+          }}
+        />
+        
+        {/* Feature badge */}
+        {project.featured && (
+          <span className="absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-indigo-950/90 text-indigo-300 border border-indigo-500/30 text-[10px] font-bold uppercase tracking-wider backdrop-blur-md">
+            <Star className="w-3 h-3 fill-indigo-400 text-indigo-400" />
+            Featured
+          </span>
+        )}
+
+        {/* Category badge */}
+        <span className={`absolute top-3 right-3 inline-flex items-center px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider backdrop-blur-md border ${
+          project.category === "production"
+            ? "bg-emerald-950/90 text-emerald-300 border-emerald-500/30"
+            : "bg-slate-950/90 text-slate-400 border-slate-800"
+        }`}>
+          {project.category === "production" ? "Live" : "Demo"}
+        </span>
+      </div>
+
+      {/* Card Body */}
+      <div className="p-6 flex-grow flex flex-col justify-between space-y-4">
+        <div className="space-y-2">
+          <div>
+            <h3 className="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors duration-200">
+              {project.title}
+            </h3>
+            {project.subtitle && (
+              <p className="text-xs text-indigo-400/90 font-medium">
+                {project.subtitle}
+              </p>
+            )}
+          </div>
+          <p className="text-slate-400 text-xs sm:text-sm font-light leading-relaxed">
+            {project.description}
+          </p>
+          
+          {/* Performance Bullet Lists */}
+          <ul className="space-y-1.5 pt-2 text-slate-300 font-light text-xs list-none">
+            {project.details.map((detail, dIdx) => (
+              <li key={dIdx} className="flex gap-2 items-start leading-normal">
+                <CheckCircle2 className="w-3.5 h-3.5 text-indigo-400 shrink-0 mt-0.5" />
+                <span>{detail}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Tech Chips */}
+        <div className="space-y-4 pt-3 border-t border-slate-900">
+          <div className="flex flex-wrap gap-1.5">
+            {project.tech.map((t) => (
+              <span
+                key={t}
+                className="px-2 py-0.5 bg-slate-900 text-slate-400 rounded-md text-[10px] font-medium border border-slate-800"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+
+          {/* Actions */}
+          {project.live && (
+            <a
+              href={project.live}
+              target={project.live !== "#" ? "_blank" : undefined}
+              rel={project.live !== "#" ? "noopener noreferrer" : undefined}
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-400 hover:text-indigo-300 transition-colors group/link"
+            >
+              <span>Explore Platform</span>
+              <ExternalLink className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Projects() {
   const [filter, setFilter] = useState<"all" | "production" | "demo">("all");
@@ -108,96 +231,7 @@ export default function Projects() {
         {/* Projects Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProjects.map((project) => (
-            <div
-              key={project.title}
-              className="glass-card rounded-2xl overflow-hidden flex flex-col h-full group"
-            >
-              {/* Thumbnail Container */}
-              <div className="relative h-48 overflow-hidden bg-slate-900 flex items-center justify-center border-b border-slate-900">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  onError={(e) => {
-                    // Fallback to project1 or standard color pattern if image fails to render
-                    (e.target as HTMLImageElement).src = "/images/project1.png";
-                  }}
-                />
-                
-                {/* Feature badge */}
-                {project.featured && (
-                  <span className="absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-indigo-950/90 text-indigo-300 border border-indigo-500/30 text-[10px] font-bold uppercase tracking-wider backdrop-blur-md">
-                    <Star className="w-3 h-3 fill-indigo-400 text-indigo-400" />
-                    Featured
-                  </span>
-                )}
-
-                {/* Category badge */}
-                <span className={`absolute top-3 right-3 inline-flex items-center px-2.5 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider backdrop-blur-md border ${
-                  project.category === "production"
-                    ? "bg-emerald-950/90 text-emerald-300 border-emerald-500/30"
-                    : "bg-slate-950/90 text-slate-400 border-slate-800"
-                }`}>
-                  {project.category === "production" ? "Live" : "Demo"}
-                </span>
-              </div>
-
-              {/* Card Body */}
-              <div className="p-6 flex-grow flex flex-col justify-between space-y-4">
-                <div className="space-y-2">
-                  <div>
-                    <h3 className="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors duration-200">
-                      {project.title}
-                    </h3>
-                    {project.subtitle && (
-                      <p className="text-xs text-indigo-400/90 font-medium">
-                        {project.subtitle}
-                      </p>
-                    )}
-                  </div>
-                  <p className="text-slate-400 text-xs sm:text-sm font-light leading-relaxed">
-                    {project.description}
-                  </p>
-                  
-                  {/* Performance Bullet Lists */}
-                  <ul className="space-y-1.5 pt-2 text-slate-300 font-light text-xs list-none">
-                    {project.details.map((detail, dIdx) => (
-                      <li key={dIdx} className="flex gap-2 items-start leading-normal">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-indigo-400 shrink-0 mt-0.5" />
-                        <span>{detail}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Tech Chips */}
-                <div className="space-y-4 pt-3 border-t border-slate-900">
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="px-2 py-0.5 bg-slate-900 text-slate-400 rounded-md text-[10px] font-medium border border-slate-800"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Actions */}
-                  {project.live && (
-                    <a
-                      href={project.live}
-                      target={project.live !== "#" ? "_blank" : undefined}
-                      rel={project.live !== "#" ? "noopener noreferrer" : undefined}
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-indigo-400 hover:text-indigo-300 transition-colors group/link"
-                    >
-                      <span>Explore Platform</span>
-                      <ExternalLink className="w-3.5 h-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
+            <ProjectCard key={project.title} project={project} />
           ))}
         </div>
       </div>
