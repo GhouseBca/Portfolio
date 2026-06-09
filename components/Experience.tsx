@@ -9,11 +9,12 @@ type ExperienceItem = {
   duration: string;
   description: string[];
   skills: string[];
+  RoleType: string;
 };
 
 const experiences: ExperienceItem[] = [
   {
-    role: "Frontend Developer Intern",
+    role: "Frontend Developer",
     company: "Kosal IT Solution",
     location: "Tirunelveli, TN",
     duration: "June 2025 - Present",
@@ -23,6 +24,7 @@ const experiences: ExperienceItem[] = [
       "Optimizing performance and responsive sizing of interfaces to improve overall mobile and web compatibility.",
     ],
     skills: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Git"],
+    RoleType: "Full-time",
   },
   {
     role: "Web Developer Intern",
@@ -35,6 +37,7 @@ const experiences: ExperienceItem[] = [
       "Conducted debugging and layout fixes across various screen viewport configurations.",
     ],
     skills: ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
+    RoleType: "Internship",
   },
 ];
 
@@ -95,7 +98,7 @@ export default function Experience() {
                   </div>
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-indigo-950/40 text-indigo-300 border border-indigo-500/20 text-xs font-medium self-start sm:self-center">
                     <Briefcase className="w-3.5 h-3.5" />
-                    Internship
+                    {exp.RoleType}
                   </span>
                 </div>
 

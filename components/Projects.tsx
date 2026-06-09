@@ -44,7 +44,7 @@ const projects: Project[] = [
     tech: ["Next.js", "TypeScript", "Tailwind CSS", "Convex", "WorkOS"],
     image: "/images/hellosm.png",
     category: "production",
-    live: "#",
+    live: "https://hello-sm.vercel.app/",
     featured: true,
   },
   {
@@ -59,32 +59,6 @@ const projects: Project[] = [
     image: "/images/project1.png",
     category: "demo",
     live: "https://dribbble.com/tags/multi-step-form",
-  },
-  {
-    title: "Integration Dashboard",
-    subtitle: "SaaS Management UI",
-    description: "A developer-focused integration portal for linking workspace communication applications.",
-    details: [
-      "Implemented drag-and-drop workflow connectors and modular status widgets.",
-      "Constructed a clean, accessible layout using tailwind-merge and lucide-react icons."
-    ],
-    tech: ["Next.js", "ShadCN UI", "Tailwind CSS"],
-    image: "/images/project2.png",
-    category: "demo",
-    live: "https://dribbble.com/tags/integration-dashboard",
-  },
-  {
-    title: "Developer Documentation UI",
-    subtitle: "Resource & Guide Center",
-    description: "A fully responsive documentation hub with sidebar navigation and lightning-fast searching.",
-    details: [
-      "Designed a robust light/dark mode system utilizing Tailwind CSS custom theme variables.",
-      "Established organized sidebar menus with intuitive routing for complex user guides."
-    ],
-    tech: ["Next.js", "Tailwind CSS"],
-    image: "/images/project3.png",
-    category: "demo",
-    live: "https://dribbble.com/tags/api-documentation",
   },
 ];
 

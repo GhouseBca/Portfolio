@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function Hero() {
-  const [profileSrc, setProfileSrc] = useState("/images/profile.webp");
+  const [profileSrc, setProfileSrc] = useState("/images/Ghouse.img.jpeg");
 
   return (
     <section
